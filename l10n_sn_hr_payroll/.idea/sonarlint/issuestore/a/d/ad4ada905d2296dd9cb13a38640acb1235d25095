@@ -1,0 +1,37 @@
+
+opython:S1192í"WDefine a constant instead of duplicating this literal 'account.full.reconcile' 5 times.(ÿë:
+mpython:S1192I"PDefine a constant instead of duplicating this literal 'account.journal' 5 times.(ªóÎ¿øÿÿÿÿ
+gpython:S1192n"PDefine a constant instead of duplicating this literal 'account.account' 4 times.(Ñá„
+xpython:S1192p"[Define a constant instead of duplicating this literal 'account.partial.reconcile' 10 times.(«õéùÿÿÿÿ
+ipython:S1192k"LDefine a constant instead of duplicating this literal 'res.company' 4 times.(¥’ˆƒüÿÿÿÿ
+ipython:S1192h"LDefine a constant instead of duplicating this literal 'res.partner' 3 times.(èµüîşÿÿÿÿ
+kpython:S1192f"SDefine a constant instead of duplicating this literal 'account.move.line' 15 times.(úÊö‡
+epython:S1192±"LDefine a constant instead of duplicating this literal 'account.tax' 5 times.(ø‹õâ
+epython:S1192^"MDefine a constant instead of duplicating this literal 'res.currency' 5 times.(ş˜Öß
+opython:S1192ù"VDefine a constant instead of duplicating this literal 'account.analytic.line' 3 times.(ª•ø
+fpython:S1192v"NDefine a constant instead of duplicating this literal 'account.move' 14 times.(Ñ£¯ğ
+Mpython:S1066Ã"/Merge this if statement with the enclosing one.(ÏÏÚåıÿÿÿÿ
+Hpython:S1066å"/Merge this if statement with the enclosing one.(‰€øã
+Mpython:S1066¨"/Merge this if statement with the enclosing one.(¼²¢ìıÿÿÿÿ
+Mpython:S1066·"/Merge this if statement with the enclosing one.(áÚ©Ôùÿÿÿÿ
+Gpython:S1066ç"/Merge this if statement with the enclosing one.(•ç¿
+rpython:S3776ƒ"TRefactor this function to reduce its Cognitive Complexity from 67 to the 15 allowed.(ß óÁûÿÿÿÿ
+lpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 31 to the 15 allowed.(Ô€Ç)
+Rpython:S3516ù"9Refactor this method to not always return the same value.(š©Îü
+rpython:S3776å"TRefactor this function to reduce its Cognitive Complexity from 54 to the 15 allowed.(äµ¦²üÿÿÿÿ
+mpython:S3776Ó"TRefactor this function to reduce its Cognitive Complexity from 45 to the 15 allowed.(–Ãõõ
+Jpython:S1481Ü",Remove the unused local variable "part_rec".(ÔÛö¾ÿÿÿÿÿ
+Jpython:S1481á",Remove the unused local variable "part_rec".(ûıàúÿÿÿÿ
+Mpython:S1481³"4Remove the unused local variable "company_currency".(ƒàëì
+lpython:S3776§"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(şµî<
+Wpython:S3516û"9Refactor this method to not always return the same value.(‹ãåóøÿÿÿÿ
+mpython:S3776§"TRefactor this function to reduce its Cognitive Complexity from 55 to the 15 allowed.(€‚ô
+mpython:S3776š"TRefactor this function to reduce its Cognitive Complexity from 24 to the 15 allowed.(õıü²
+rpython:S3776Ö"TRefactor this function to reduce its Cognitive Complexity from 22 to the 15 allowed.(²’û¢úÿÿÿÿ
+lpython:S3776‘	"TRefactor this function to reduce its Cognitive Complexity from 40 to the 15 allowed.(´Ø
+mpython:S3776Š
+"TRefactor this function to reduce its Cognitive Complexity from 23 to the 15 allowed.(àˆÒ“
+mpython:S3776ş
+"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(°ï³û
+kpython:S1764§"MCorrect one of the identical sub-expressions on both sides of operator "and".(ğ€Ïüÿÿÿÿ
+rpython:S3776¾"TRefactor this function to reduce its Cognitive Complexity from 82 to the 15 allowed.(†ËËÓşÿÿÿÿ

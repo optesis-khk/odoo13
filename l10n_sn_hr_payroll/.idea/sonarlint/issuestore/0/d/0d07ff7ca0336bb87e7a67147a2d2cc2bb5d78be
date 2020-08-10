@@ -1,0 +1,34 @@
+
+|python:S1192å"^Define a constant instead of duplicating this literal "account.group_account_invoice" 3 times.(•±Íƒûÿÿÿÿ
+npython:S1192Q"QDefine a constant instead of duplicating this literal 'account.journal' 11 times.(‘°ƒœıÿÿÿÿ
+ipython:S1192§"PDefine a constant instead of duplicating this literal 'account.account' 3 times.(ÊØ•Á
+epython:S1192ï"LDefine a constant instead of duplicating this literal 'Vendor Bill' 4 times.(“ôºø
+spython:S1192ª"UDefine a constant instead of duplicating this literal 'account.invoice.line' 3 times.(¸´èøùÿÿÿÿ
+epython:S1192Ê"LDefine a constant instead of duplicating this literal 'res.company' 6 times.( öˆ†
+jpython:S1192‚"LDefine a constant instead of duplicating this literal 'res.partner' 7 times.(â—Ö¡şÿÿÿÿ
+npython:S1192ö"PDefine a constant instead of duplicating this literal 'account.invoice' 8 times.(ƒàØåşÿÿÿÿ
+kpython:S1192Š"RDefine a constant instead of duplicating this literal 'account.move.line' 5 times.(ï™„è
+jpython:S1192Û"LDefine a constant instead of duplicating this literal 'account.tax' 4 times.(•½ğ¨ÿÿÿÿÿ
+kpython:S1192Â"MDefine a constant instead of duplicating this literal 'res.currency' 6 times.(ƒ´óüüÿÿÿÿ
+fpython:S1192"NDefine a constant instead of duplicating this literal 'Payment Terms' 4 times.(¨÷…t
+kpython:S1192¯"MDefine a constant instead of duplicating this literal 'account.move' 3 times.(éÉó÷üÿÿÿÿ
+Hpython:S1066ö	"/Merge this if statement with the enclosing one.(‹îÎß
+Hpython:S1066é"/Merge this if statement with the enclosing one.(¸ì÷ª
+Mpython:S1066°"/Merge this if statement with the enclosing one.(Â¾èšÿÿÿÿÿ
+Mpython:S1066à"/Merge this if statement with the enclosing one.(ò­ÄÚûÿÿÿÿ
+lpython:S3776i"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(­¤ı
+lpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 21 to the 15 allowed.(ßºø÷
+rpython:S3776£"TRefactor this function to reduce its Cognitive Complexity from 24 to the 15 allowed.(˜”ëıÿÿÿÿ
+rpython:S3776¨"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(ªğÖøÿÿÿÿ
+rpython:S3776ó"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(ƒÕµºøÿÿÿÿ
+upython:S117©"XRename this local variable "Journal" to match the regular expression ^[_a-z][a-z0-9_]*$.(ßèõÕûÿÿÿÿ
+6python:S3626ã"Remove this redundant return.(ÙãŞŸ
+mpython:S3776æ"TRefactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.(¢±“ì
+rpython:S3776¹"TRefactor this function to reduce its Cognitive Complexity from 30 to the 15 allowed.(¿åĞ¸şÿÿÿÿ
+mpython:S3776õ"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(˜›º°
+mpython:S3776Œ	"TRefactor this function to reduce its Cognitive Complexity from 34 to the 15 allowed.(¦©Ãà
+Spython:S1481¨";Remove the unused local variable "journal_payment_methods".(±±M
+Ypython:S1481«";Remove the unused local variable "journal_payment_methods".(Æãèİşÿÿÿÿ
+rpython:S3776¤"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(Û›âßøÿÿÿÿ
+mpython:S3776…"TRefactor this function to reduce its Cognitive Complexity from 23 to the 15 allowed.(ÈĞöÛ
+rpython:S3776ê"TRefactor this function to reduce its Cognitive Complexity from 27 to the 15 allowed.(†”ø‰ùÿÿÿÿ

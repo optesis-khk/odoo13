@@ -1,0 +1,23 @@
+
+ipython:S1192à"PDefine a constant instead of duplicating this literal 'account.journal' 4 times.(ä‰óØ
+ipython:S1192]"QDefine a constant instead of duplicating this literal 'account.account' 14 times.(î¬‚Û
+dpython:S1192\"LDefine a constant instead of duplicating this literal 'res.company' 7 times.(õÓì
+opython:S1192Ô"QDefine a constant instead of duplicating this literal 'res.partner.bank' 4 times.(¦ƒÒşÿÿÿÿ
+opython:S1192u"RDefine a constant instead of duplicating this literal 'account.move.line' 7 times.(ÔÈ“”şÿÿÿÿ
+dpython:S1192Y"LDefine a constant instead of duplicating this literal 'account.tax' 3 times.(±ÚÆÜ
+jpython:S1192J"MDefine a constant instead of duplicating this literal 'res.currency' 3 times.(ºŸÚ¿ÿÿÿÿÿ
+hpython:S1192ò"JDefine a constant instead of duplicating this literal "%s (copy)" 5 times.(éŞóçûÿÿÿÿ
+lpython:S1192)"TDefine a constant instead of duplicating this literal 'account.account.tag' 3 times.(àîë
+kpython:S1192_"NDefine a constant instead of duplicating this literal 'account.group' 3 times.(µÒÇûÿÿÿÿ
+epython:S1192¬"LDefine a constant instead of duplicating this literal 'ir.sequence' 3 times.(©£ü‚
+fpython:S1192ë"MDefine a constant instead of duplicating this literal 'account.move' 3 times.(ŠæÂß
+kpython:S1192Ş"RDefine a constant instead of duplicating this literal 'account.tax.group' 3 times.(Ó®ò²
+;python:S125R"Remove this commented out code.(Äùõñûÿÿÿÿ
+upython:S117Ó"]Rename this local variable "AccountGroup" to match the regular expression ^[_a-z][a-z0-9_]*$.(æâ«Ó
+rpython:S3776°"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(²’û¢úÿÿÿÿ
+6python:S125º"Remove this commented out code.(©ÃÄn
+rpython:S3776ç"TRefactor this function to reduce its Cognitive Complexity from 55 to the 15 allowed.(²’û¢úÿÿÿÿ
+mpython:S3776é"TRefactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed.(©åÖü
+mpython:S1854Õ"ORemove this assignment to local variable 'tax_amount'; the value is never used.(ÓŸ¦îúÿÿÿÿ
+mpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.(‹€ œ
+epython:S1134‚	"LTake the required action to fix the issue indicated by this "FIXME" comment.(„Û§
