@@ -73,8 +73,8 @@ class HrContractBonus(models.Model):
 
             contract.nbj_pris = days
 
-    def reinit(self, contract_ids):
-        for record in self.browse(contract_ids):
+    def reinit(self):
+        for record in self:
             record.cumul_mensuel = record.cumul_mensuel - record.alloc_conges
             record.alloc_conges = 0
             record.nbj_aquis = record.nbj_aquis - record.nbj_pris

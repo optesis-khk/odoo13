@@ -64,10 +64,11 @@ class BonusRuleInput(models.Model):
         for payslip in self:
             if not payslip.number:
                 payslip.compute_sheet()
-            contract_ids = payslip.get_contract(payslip.employee_id, payslip.date_from, payslip.date_to)
+#             contract_ids = payslip.get_contract(payslip.employee_id, payslip.date_from, payslip.date_to)
             for line in payslip.line_ids:
                 if line.code == "C1060":
                     self.env['hr.contract'].reinit(contract_ids)
+                    payslip.contract_id.reinit()
                     break
 
             return payslip.write({'state': 'validate'})
@@ -99,8 +100,8 @@ class BonusRuleInput(models.Model):
                 })
                 provision_conges = 0.0
                 provision_fin_contrat = 0.0
-                provision_conges += sum(line.total for line in payslip.details_by_salary_rule_category if line.code == 'C1150')
-                provision_fin_contrat += sum(line.total for line in payslip.details_by_salary_rule_category if line.code == 'C1160')
+                provision_conges += sum(line.total for line in payslip.line_ids if line.code == 'C1150')
+                provision_fin_contrat += sum(line.total for line in payslip.line_ids if line.code == 'C1160')
                 payslip.contract_id._get_droit(provision_conges, provision_fin_contrat)
                 
                 # set holidays to done if exist in this period
