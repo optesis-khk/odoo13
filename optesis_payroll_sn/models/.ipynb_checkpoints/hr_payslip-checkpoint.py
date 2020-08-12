@@ -72,8 +72,8 @@ class BonusRuleInput(models.Model):
 
             return payslip.write({'state': 'validate'})
 
-    def action_payslip_draft(self):
-        return self.write({'state': 'draft'})
+#     def action_payslip_draft(self):
+#         return self.write({'state': 'draft'})
 
     def get_worked_days_per_year(self,employee_id, year):
         worked_days_obj = self.env['employee.worked.days'].search([('employee_id', '=', employee_id),('year', '=', year)])
