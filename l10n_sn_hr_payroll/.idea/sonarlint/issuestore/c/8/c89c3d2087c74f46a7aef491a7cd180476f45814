@@ -1,0 +1,15 @@
+
+hpython:S1192j"PDefine a constant instead of duplicating this literal 'account.journal' 4 times.(÷§Ìá
+dpython:S1192h"LDefine a constant instead of duplicating this literal 'res.company' 4 times.(Êå©Î
+ppython:S1192›"RDefine a constant instead of duplicating this literal 'account.move.line' 6 times.(ºı˜ëøÿÿÿÿ
+kpython:S1192"MDefine a constant instead of duplicating this literal 'res.currency' 3 times.(ø±Õ¨ûÿÿÿÿ
+tpython:S1192,"WDefine a constant instead of duplicating this literal 'account.bank.statement' 6 times.(‡–›Æøÿÿÿÿ
+npython:S1192à"PDefine a constant instead of duplicating this literal 'account.payment' 4 times.(çŸø‹üÿÿÿÿ
+|python:S1192"_Define a constant instead of duplicating this literal 'account.bank.statement.cashbox' 5 times.(Úö“¥şÿÿÿÿ
+kpython:S1192í"MDefine a constant instead of duplicating this literal 'account.move' 4 times.( ®ÿâûÿÿÿÿ
+rpython:S3776©"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(ÏªĞ×şÿÿÿÿ
+spython:S117“"\Rename this local variable "SequenceObj" to match the regular expression ^[_a-z][a-z0-9_]*$.(‡·C
+Hpython:S1656Ò"/Remove or correct this useless self-assignment.(ğí•»
+rpython:S3776¤"TRefactor this function to reduce its Cognitive Complexity from 24 to the 15 allowed.(ç¼ı‰ÿÿÿÿÿ
+npython:S1854‰"URemove this assignment to local variable 'st_line_currency'; the value is never used.(©ê©Ñ
+rpython:S3776å"TRefactor this function to reduce its Cognitive Complexity from 85 to the 15 allowed.(×ˆïşÿÿÿÿ

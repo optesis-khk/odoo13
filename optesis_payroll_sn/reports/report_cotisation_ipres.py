@@ -25,9 +25,12 @@ from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError
 
 from odoo import api, fields, models, _
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
-class CotisationIpresReport(models.AbstractModel):
+class CotisationIpresReport(models.TransientModel):
     _name = 'report.optesis_payroll_sn.report_ipres_view'
     _description = 'Rapport cotisation ipres'
 
@@ -37,8 +40,7 @@ class CotisationIpresReport(models.AbstractModel):
             raise UserError(_("Form content is missing, this report cannot be printed."))
 
         register_ids = self.env.context.get('active_ids', [])
-        #contrib_registers = self.env['hr.contribution.register'].browse(register_ids)
-        contrib_registers = self._cr.dictfetchall()
+        contrib_registers = self.env['optesis.payslip.lines.cotisation.ipres'].browse(register_ids)
         date_from = data['form'].get('date_from', fields.Date.today())
         date_to = data['form'].get('date_to', str(datetime.now() + relativedelta(months=+1, day=1, days=-1))[:10])
 
@@ -191,10 +193,10 @@ class CotisationIpresReport(models.AbstractModel):
             'total_ipres_rg_pat': int(round(total_ipres_rg_pat)),
             'total_brut': int(round(total_brut)),
         })
-
+        
         return {
             'doc_ids': register_ids,
-            #'doc_model': 'hr.contribution.register',
+            'doc_model': 'optesis.payslip.lines.cotisation.ipres',
             'docs': contrib_registers,
             'data': data,
             'lines_data': lines_data,

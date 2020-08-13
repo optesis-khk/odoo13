@@ -64,16 +64,14 @@ class BonusRuleInput(models.Model):
         for payslip in self:
             if not payslip.number:
                 payslip.compute_sheet()
-            contract_ids = payslip.get_contract(payslip.employee_id, payslip.date_from, payslip.date_to)
             for line in payslip.line_ids:
                 if line.code == "C1060":
                     self.env['hr.contract'].reinit(contract_ids)
+                    payslip.contract_id.reinit()
                     break
 
             return payslip.write({'state': 'validate'})
 
-    def action_payslip_draft(self):
-        return self.write({'state': 'draft'})
 
     def get_worked_days_per_year(self,employee_id, year):
         worked_days_obj = self.env['employee.worked.days'].search([('employee_id', '=', employee_id),('year', '=', year)])
@@ -99,8 +97,8 @@ class BonusRuleInput(models.Model):
                 })
                 provision_conges = 0.0
                 provision_fin_contrat = 0.0
-                provision_conges += sum(line.total for line in payslip.details_by_salary_rule_category if line.code == 'C1150')
-                provision_fin_contrat += sum(line.total for line in payslip.details_by_salary_rule_category if line.code == 'C1160')
+                provision_conges += sum(line.total for line in payslip.line_ids if line.code == 'C1150')
+                provision_fin_contrat += sum(line.total for line in payslip.line_ids if line.code == 'C1160')
                 payslip.contract_id._get_droit(provision_conges, provision_fin_contrat)
                 
                 # set holidays to done if exist in this period
@@ -256,32 +254,28 @@ class BonusRuleInput(models.Model):
             [obj.write({'amount': round(net_payslip - ir_fin)}) for obj in
             payslip.line_ids if obj.code == "C5000"]
 
-            # compute and update salary rule provision de fin de contract
-            # if payslip.contract_id.typeContract == "cdd":
-            #     val = payslip.compute_end_contract_provision()
-            #     [obj.write({'amount': round(val)}) for obj in payslip.line_ids if obj.code == "C1130"]
-
             # compute_loan_balance
             if payslip.contract_id.motif:
+                """get the amount of unpaid loan"""
                 val_loan_balance = payslip.loan_balance()
                 if val_loan_balance != 0:
                     [payslip_line.write({'amount': round(net_payslip - val_loan_balance)}) for payslip_line in
                      payslip.line_ids if payslip_line.code == "C5000"]
 
-    def get_inputs(self, contract_ids, date_from, date_to):
-        res = super(BonusRuleInput, self).get_inputs(contract_ids, date_from, date_to)
-        for bonus in self.contract_id.bonus:
-            if not ((bonus.date_to < self.date_from or bonus.date_from > self.date_to) or
-                    (bonus.date_to <= self.date_from or bonus.date_from >= self.date_to)):
-                bonus_line = {
-                    'name': str(bonus.salary_rule.name),
-                    'code': bonus.salary_rule.code,
-                    'contract_id': self.contract_id.id,
-                    'amount': bonus.amount,
+#     def get_inputs(self, contract_ids, date_from, date_to):
+#         res = super(BonusRuleInput, self).get_inputs(contract_ids, date_from, date_to)
+#         for bonus in self.contract_id.bonus:
+#             if not ((bonus.date_to < self.date_from or bonus.date_from > self.date_to) or
+#                     (bonus.date_to <= self.date_from or bonus.date_from >= self.date_to)):
+#                 bonus_line = {
+#                     'name': str(bonus.salary_rule.name),
+#                     'code': bonus.salary_rule.code,
+#                     'contract_id': self.contract_id.id,
+#                     'amount': bonus.amount,
 
-                }
-                res += [bonus_line]
-        return res
+#                 }
+#                 res += [bonus_line]
+#         return res
 
     def compute_sheet(self):
         for payslip in self:
@@ -291,11 +285,11 @@ class BonusRuleInput(models.Model):
                         _("La date du bulletin ne peut pas être supérieur à la date de sortie du contract"))
 
                 # get from optesis_hr_loan for recovering loan line
-                loan_line_obj = self.env['hr.loan.line']
-                loan_ids = loan_line_obj.search(
-                    [('employee_id', '=', payslip.employee_id.id), ('paid_date', '>=', payslip.date_from),
-                    ('paid_date', '<=', payslip.date_to), ('loan_id.state', 'in', ['approve_1', 'approve'])])
-                payslip.loan_ids = loan_ids
+#                 loan_line_obj = self.env['hr.loan.line']
+#                 loan_ids = loan_line_obj.search(
+#                     [('employee_id', '=', payslip.employee_id.id), ('paid_date', '>=', payslip.date_from),
+#                     ('paid_date', '<=', payslip.date_to), ('loan_id.state', 'in', ['approve_1', 'approve'])])
+#                 payslip.loan_ids = loan_ids
                 
                 number = payslip.number or self.env['ir.sequence'].next_by_code('salary.slip')
                 # delete old payslip lines
@@ -313,6 +307,7 @@ class BonusRuleInput(models.Model):
 
     @api.model
     def get_payslip_lines(self, contract_ids, payslip_id):
+        """defined by cybrosys we use this function"""
         for record in self:
             def _sum_salary_rule_category(localdict, category, amount):
                 if category.parent_id:
@@ -403,9 +398,13 @@ class BonusRuleInput(models.Model):
                              'inputs': inputs}
             # get the ids of the structures on the contracts and their parent id as well
             contracts = record.env['hr.contract'].browse(contract_ids)
-            structure_ids = contracts.get_all_structures()
+            #structure_ids = contracts.get_all_structures() commented by khk
+            structure_id = contracts.structure_type_id.struct_ids[0]
             # get the rules of the structure and thier children
-            rule_ids = record.env['hr.payroll.structure'].browse(structure_ids).get_all_rules()
+            #rule_ids = record.env['hr.payroll.structure'].browse(structure_ids).get_all_rules() commented by khk
+            rule_ids = []
+            for rule in structure_id.rule_ids:
+                rule_ids.append((rule.id, rule.sequence))
             # run the rules by sequence
             # Appending bonus rules from the contract
             for contract in contracts:
@@ -484,82 +483,56 @@ class BonusRuleInput(models.Model):
                             'category_id': rule.category_id.id,
                             'sequence': rule.sequence,
                             'appears_on_payslip': rule.appears_on_payslip,
-                            'condition_select': rule.condition_select,
-                            'condition_python': rule.condition_python,
-                            'condition_range': rule.condition_range,
-                            'condition_range_min': rule.condition_range_min,
-                            'condition_range_max': rule.condition_range_max,
                             'amount_select': rule.amount_select,
                             'amount_fix': rule.amount_fix,
-                            'amount_python_compute': rule.amount_python_compute,
                             'amount_percentage': rule.amount_percentage,
-                            'amount_percentage_base': rule.amount_percentage_base,
-                            'register_id': rule.register_id.id,
                             'amount': amount,
                             'employee_id': contract.employee_id.id,
                             'quantity': qty,
                             'rate': rate,
                         }
-                    else:
-                        # blacklist this rule and its children
-                        blacklist += [id for id, seq in rule._recursive_search_of_rules()]
+#                     else:
+#                         # blacklist this rule and its children
+#                         blacklist += [id for id, seq in rule._recursive_search_of_rules()]
                 # payslips.contract_id._get_duration(payslips.date_from)
 
             return [value for code, value in result_dict.items()]
 
     # for changing the number
-    @api.model
-    def get_worked_day_lines(self, contracts, date_from, date_to):
+    def _get_worked_day_lines(self):
         """
-        @param contract: Browse record of contracts
-        @return: returns a list of dict containing the input that should be applied for the given contract
-         between date_from and date_to
+        :returns: a list of dict containing the worked days values that should be applied for the given payslip
         """
         res = []
         # fill only if the contract as a working schedule linked
-        for contract in contracts.filtered(lambda contract: contract.resource_calendar_id):
-            day_from = datetime.combine(fields.Date.from_string(date_from), t.min)
-            day_to = datetime.combine(fields.Date.from_string(date_to), t.max)
+        self.ensure_one()
+        contract = self.contract_id
+        if contract.resource_calendar_id:
+            paid_amount = self._get_contract_wage()
+            unpaid_work_entry_types = self.struct_id.unpaid_work_entry_type_ids.ids
 
-            # compute leave days
-            leaves = {}
-            calendar = contract.resource_calendar_id
-            tz = timezone(calendar.tz)
-            day_leave_intervals = contract.employee_id.list_leaves(day_from, day_to,
-                                                                   calendar=contract.resource_calendar_id)
-            for day, hours, leave in day_leave_intervals:
-                holiday = leave.holiday_id
-                current_leave_struct = leaves.setdefault(holiday.holiday_status_id, {
-                    'name': holiday.holiday_status_id.name,
-                    'sequence': 5,
-                    'code': holiday.holiday_status_id.name,
-                    'number_of_days': 0.0,
-                    'number_of_hours': 0.0,
-                    'contract_id': contract.id,
-                })
-                current_leave_struct['number_of_hours'] += hours
-                work_hours = calendar.get_work_hours_count(
-                    tz.localize(datetime.combine(day, t.min)),
-                    tz.localize(datetime.combine(day, t.max)),
-                    compute_leaves=False,
-                )
-                if work_hours:
-                    current_leave_struct['number_of_days'] += hours / work_hours
-
-            # compute worked days
-            # work_data = contract.employee_id.get_work_days_data(day_from,
-            # day_to, calendar=contract.resource_calendar_id)
-            attendances = {
-                'name': _("Normal Working Days paid at 100%"),
-                'sequence': 1,
-                'code': 'WORK100',
-                'number_of_days': 30,
-                'number_of_hours': 173.33,
-                'contract_id': contract.id,
-            }
-
-            res.append(attendances)
-            res.extend(leaves.values())
+            work_hours = contract._get_work_hours(self.date_from, self.date_to)
+            total_hours = sum(work_hours.values()) or 1
+            work_hours_ordered = sorted(work_hours.items(), key=lambda x: x[1])
+            biggest_work = work_hours_ordered[-1][0] if work_hours_ordered else 0
+            add_days_rounding = 0
+            for work_entry_type_id, hours in work_hours_ordered:
+                work_entry_type = self.env['hr.work.entry.type'].browse(work_entry_type_id)
+                is_paid = work_entry_type_id not in unpaid_work_entry_types
+                calendar = contract.resource_calendar_id
+                days = round(hours / calendar.hours_per_day, 5) if calendar.hours_per_day else 0
+                if work_entry_type_id == biggest_work:
+                    days += add_days_rounding
+                day_rounded = self._round_days(work_entry_type, days)
+                add_days_rounding += (days - day_rounded)
+                attendance_line = {
+                    'sequence': work_entry_type.sequence,
+                    'work_entry_type_id': work_entry_type_id,
+                    'number_of_days': 30, # day_rounded,
+                    'number_of_hours': 173.33, # hours,
+                    'amount': hours * paid_amount / total_hours if is_paid else 0,
+                }
+                res.append(attendance_line)
         return res
 
 class HrPayslipLine(models.Model):

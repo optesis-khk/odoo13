@@ -6,8 +6,8 @@ from odoo.exceptions import UserError
 from odoo import api, fields, models, _
 
 
-class TransferOrder(models.AbstractModel):
-    _name = 'report.optipay.report_transfer_order_view'
+class TransferOrder(models.TransientModel):
+    _name = 'report.optesis_payroll_sn.report_transfer_order_view'
     _description = 'Rapport ordre de virement'
 
     def _get_lines(self, month, year):
@@ -62,8 +62,7 @@ class TransferOrder(models.AbstractModel):
 
         now = datetime.now()
         register_ids = self.env.context.get('active_ids', [])
-        # contrib_registers = self.env['hr.contribution.register'].browse(register_ids)
-        contrib_registers = self._cr.dictfetchall()
+        contrib_registers = self.env['optesis.transfer.order'].browse(register_ids)
         date_from = data['form'].get('date_from', fields.Date.today())
         month = datetime.strptime(str(date_from), server_dt).month
         year = datetime.strptime(str(date_from), server_dt).year
@@ -82,7 +81,7 @@ class TransferOrder(models.AbstractModel):
 
         return {
             'doc_ids': register_ids,
-            #'doc_model': 'hr.contribution.register',
+            'doc_model': 'optesis.transfer.order',
             'docs': contrib_registers,
             'data': data,
             'lines_data': lines_data,

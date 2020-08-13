@@ -8,6 +8,9 @@ from datetime import datetime
 from dateutil import relativedelta
 from odoo import fields, models, api
 from odoo.exceptions import Warning
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class OptesisPayslipLinesCotisationIpres(models.TransientModel):
@@ -30,13 +33,13 @@ class OptesisPayslipLinesCotisationIpres(models.TransientModel):
     def print_report_ipres(self):
 
         if self.print_format == 'pdf':
-            active_ids = self.env.context.get('active_ids', [])
+            #active_ids = self.env.context.get('active_ids', [])
             datas = {
-                'ids': active_ids,
-                # 'model': 'hr.contribution.register',
+                'model': 'optesis.payslip.lines.cotisation.ipres',
                 'form': self.read()[0]
             }
-            return self.env.ref('optesis_payroll_sn.cotisation_ipres').report_action([], data=datas)
+            
+            return self.env.ref('optesis_payroll_sn.cotisation_ipres').report_action(self, data=datas)
         else:
             self.env.cr.execute("SELECT DISTINCT hr_payslip_line.id, " \
                                 "hr_employee.num_chezemployeur," \
