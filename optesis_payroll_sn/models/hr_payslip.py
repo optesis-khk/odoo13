@@ -254,7 +254,6 @@ class BonusRuleInput(models.Model):
             [obj.write({'amount': round(net_payslip - ir_fin)}) for obj in
             payslip.line_ids if obj.code == "C5000"]
 
-
             # compute_loan_balance
             if payslip.contract_id.motif:
                 """get the amount of unpaid loan"""
@@ -535,7 +534,6 @@ class BonusRuleInput(models.Model):
                 }
                 res.append(attendance_line)
         return res
-    
 
 class HrPayslipLine(models.Model):
     _inherit = 'hr.payslip.line'

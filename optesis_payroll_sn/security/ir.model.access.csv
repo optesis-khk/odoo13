@@ -9,4 +9,3 @@ access_optesis_detail_versement,optesis.detail.versement,model_optesis_detail_ve
 access_optesis_detail_versement_line,optesis.detail.versement.line,model_optesis_detail_versement_line,base.group_user,1,1,1,1
 access_employee_worked_days,employee.worked.days,model_employee_worked_days,base.group_user,1,1,1,1
 access_optesis_optipay_holidays_tracking,optipay.holidays.tracking,model_optipay_holidays_tracking,base.group_user,1,1,1,1
-
