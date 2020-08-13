@@ -83,7 +83,7 @@ class HrContractBonus(models.Model):
     @api.onchange("convention_id")
     def onchange_categ(self):
         if self.convention_id:
-            self.hourly_wage = self.convention_id.wage
+            self.wage = self.convention_id.wage
 
     def _get_droit(self, provision_conges, provision_fin_contrat):
         for record in self:
