@@ -91,7 +91,7 @@ class HrContractBonus(models.Model):
             record.cumul_provision_fin_contrat += provision_fin_contrat
             record.nbj_aquis += record.company_id.nbj_alloue
 
-    @api.depends('cumul_mensuel', 'nbj_pris', 'nbj_aquis')
+    @api.onchange('cumul_mensuel', 'nbj_pris', 'nbj_aquis')
     def _get_alloc(self):
         for record in self:
             if record.nbj_pris != 0 and record.cumul_mensuel != 0 and record.nbj_aquis != 0:
