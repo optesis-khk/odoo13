@@ -4,6 +4,9 @@ from odoo import models, fields, api, _
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 from odoo.exceptions import ValidationError
 from pytz import timezone
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class BonusRuleInput(models.Model):
     _inherit = 'hr.payslip'
@@ -19,6 +22,34 @@ class BonusRuleInput(models.Model):
     payslip_count_yearly = fields.Integer('Nb payslip yearly', compute="_get_payslip_count_yearly")
     year = fields.Char(string="year", compute='_get_year', store=True)
     holiday_of_payslip = fields.Float(default=0)
+    
+    @api.onchange('employee_id','struct_id')
+    def _get_inputs(self):
+        res = []
+        for bonus in self.contract_id.bonus:
+            if not ((bonus.date_to < self.date_from or bonus.date_from > self.date_to) or
+                    (bonus.date_to <= self.date_from or bonus.date_from >= self.date_to)):
+                input = self.env['hr.payslip.input.type'].search([('code', '=', bonus.salary_rule.code)])
+                if not input:
+                    input = self.env['hr.payslip.input.type'].create({
+                        'name':bonus.salary_rule.name,
+                        'code':bonus.salary_rule.code
+                    })
+                bonus_line = {
+                    'name': bonus.salary_rule.name,
+                    'input_type_id': input.id if input else bonus.salary_rule.name,
+                    'contract_id': self.contract_id.id,
+                    'amount': bonus.amount,
+
+                }
+                res += [bonus_line]
+        input_lines = self.input_line_ids.browse([])
+        for r in res:
+            input_lines += input_lines.new(r)
+        self.input_line_ids = input_lines
+        return
+        
+        
 
     @api.depends('date_from')
     def _get_year(self):
@@ -262,20 +293,6 @@ class BonusRuleInput(models.Model):
                     [payslip_line.write({'amount': round(net_payslip - val_loan_balance)}) for payslip_line in
                      payslip.line_ids if payslip_line.code == "C5000"]
 
-#     def get_inputs(self, contract_ids, date_from, date_to):
-#         res = super(BonusRuleInput, self).get_inputs(contract_ids, date_from, date_to)
-#         for bonus in self.contract_id.bonus:
-#             if not ((bonus.date_to < self.date_from or bonus.date_from > self.date_to) or
-#                     (bonus.date_to <= self.date_from or bonus.date_from >= self.date_to)):
-#                 bonus_line = {
-#                     'name': str(bonus.salary_rule.name),
-#                     'code': bonus.salary_rule.code,
-#                     'contract_id': self.contract_id.id,
-#                     'amount': bonus.amount,
-
-#                 }
-#                 res += [bonus_line]
-#         return res
 
     def compute_sheet(self):
         for payslip in self:
@@ -494,7 +511,7 @@ class BonusRuleInput(models.Model):
 #                     else:
 #                         # blacklist this rule and its children
 #                         blacklist += [id for id, seq in rule._recursive_search_of_rules()]
-                # payslips.contract_id._get_duration(payslips.date_from)
+                payslips.contract_id._get_duration(payslips.date_from)
 
             return [value for code, value in result_dict.items()]
 
