@@ -14,7 +14,7 @@ class OptesisDetailVersement(models.Model):
         ('2020', '2020'),
         ('2021', '2021'),
         ('2022', '2022')],
-        'Année ', required=True, default=datetime.now().year)
+        'Année ', required=True, default=str(datetime.now().year))
     detail_versement_line = fields.One2many('optesis.detail.versement.line', 'detail_versement_id',
                                             string="DETAIL DES VERSEMENTS")
     company_id = fields.Many2one('res.company', 'Société', copy=False,

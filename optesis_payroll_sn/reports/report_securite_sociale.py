@@ -4,20 +4,23 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
-class SecuriteSociale(models.AbstractModel):
-    _name = 'report.optipay.report_css_view'
+class SecuriteSociale(models.TransientModel):
+    _name = 'report.optesis_payroll_sn.report_css_view'
     _description = 'Rapport securite sociale'
 
     @api.model
     def _get_report_values(self, docids, data=None):
+        _logger.info('DANS LA FONCTION GET REPORT VALUE')
         if not data.get('form'):
             raise UserError(_("Form content is missing, this report cannot be printed."))
 
         register_ids = self.env.context.get('active_ids', [])
-        # contrib_registers = self.env['hr.contribution.register'].browse(register_ids)
-        contrib_registers = self._cr.dictfetchall()
+        contrib_registers = self.env['optesis.payslip.lines.cotisation.ipres'].browse(register_ids)
         date_from = data['form'].get('date_from', fields.Date.today())
         date_to = data['form'].get('date_to', str(datetime.now() + relativedelta(months=+1, day=1, days=-1))[:10])
 
@@ -106,10 +109,12 @@ class SecuriteSociale(models.AbstractModel):
             'total_acw': int(round(total_acw)),
             'total_cotisation': int(round(total_cotisation)),
         }]
+        
+        _logger.info('LA VALEUR DU REGISTER ' + str(register_ids))
 
         return {
             'doc_ids': register_ids,
-            #'doc_model': 'hr.contribution.register',
+            'doc_model': 'optesis.payslip.lines.securite.sociale',
             'docs': contrib_registers,
             'data': data,
             'lines_data': lines_data,

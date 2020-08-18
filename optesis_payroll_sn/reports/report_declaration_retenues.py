@@ -6,7 +6,7 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 from odoo.exceptions import UserError
 from odoo import api, fields, models, _
 
-class DeclarationRetenues(models.AbstractModel):
+class DeclarationRetenues(models.TransientModel):
     _name = 'report.optesis_payroll_sn.report_declaration_retenues_view'
     _description = 'Rapport declaration des retenues'
 
@@ -32,8 +32,7 @@ class DeclarationRetenues(models.AbstractModel):
         }
         now = datetime.now()
         register_ids = self.env.context.get('active_ids', [])
-        # contrib_registers = self.env['hr.contribution.register'].browse(register_ids)
-        contrib_registers = self._cr.dictfetchall()
+        contrib_registers = self.env['optesis.declaration.retenues'].browse(register_ids)
         date_from = data['form'].get('date_from', fields.Date.today())
         date_to = data['form'].get('date_to', str(datetime.now() + relativedelta(months=+1, day=1, days=-1))[:10])
         month_from = datetime.strptime(str(date_from), server_dt).month

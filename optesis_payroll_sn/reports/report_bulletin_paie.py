@@ -4,10 +4,13 @@ from odoo import api, models
 from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 from dateutil import relativedelta
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
-class BulletinPaieReport(models.AbstractModel):
-    _name = "report.optipay.report_bulletin"
+class BulletinPaieReport(models.TransientModel):
+    _name = "report.optesis_payroll_sn.report_bulletin"
     _description = "Bulletin de paie"
 
     def get_payslip_imposable(self, payslip_lines):

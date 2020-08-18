@@ -48,7 +48,6 @@
         'data/employee_scheduler.xml',
         'views/account_move_view.xml',
         'views/payslip_batches_action.xml',
-        # 'views/batch_payslip_fixed.xml',
         'data/custom_paper_format.xml',
         'data/custom_format_paper_bulletin.xml',
         'views/bulletin_paie.xml',

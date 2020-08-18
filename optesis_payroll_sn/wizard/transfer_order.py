@@ -25,10 +25,8 @@ class OptesisTransferOrder(models.TransientModel):
 
     def print_report_transfer_order(self):
         if self.print_format == 'pdf':
-            active_ids = self.env.context.get('active_ids', [])
             datas = {
-                'ids': active_ids,
-                #'model': 'hr.contribution.register',
+                'model': 'optesis.transfer.order',
                 'form': self.read()[0]
             }
             return self.env.ref('optesis_payroll_sn.transfer_order').report_action([], data=datas)

@@ -31,16 +31,16 @@
           parent="menu_optipay_reporting"
           sequence="80"/>
 
-          <!--<menuitem
+          <menuitem
           id="reporting_menu_action"
           action="hr_payslip_reporting"
           parent="menu_optipay_reporting"
-          sequence="100"/>-->
+          sequence="100"/>
 
-          <!--<menuitem
+          <menuitem
           id="dads_menu_action"
           action="launch_dads_report_wizard"
           parent="menu_optipay_reporting"
-          sequence="90"/>-->
+          sequence="90"/>
 
 </odoo>

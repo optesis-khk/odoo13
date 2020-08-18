@@ -247,7 +247,7 @@
           </xpath>
 
           <xpath expr="//form/header/field[1]" position="attributes">
-            <attribute name="statusbar_visible">draft,validate,confirm</attribute>
+            <attribute name="statusbar_visible">draft,validate,done</attribute>
           </xpath>
 
           <xpath expr="//form/header/button[@name='action_payslip_done']" position="after">

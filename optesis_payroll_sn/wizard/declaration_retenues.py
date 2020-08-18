@@ -18,7 +18,7 @@ class OptesisDeclarationRetenues(models.TransientModel):
         active_ids = self.env.context.get('active_ids', [])
         datas = {
             'ids': active_ids,
-            #'model': 'hr.contribution.register',
+            'model': 'optesis.declaration.retenues',
             'form': self.read()[0]
         }
         return self.env.ref('optesis_payroll_sn.declaration_retenues').report_action([], data=datas)
