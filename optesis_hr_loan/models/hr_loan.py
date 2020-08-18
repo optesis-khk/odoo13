@@ -277,7 +277,9 @@ if payslip.loan_ids:
                 total_amount += line.paid_amount
     result = total_amount > 0""" % (loan_type_id.id)
 
-            salary_rule_vals = {
+            
+            for struct in structures:
+                salary_rule_vals = {
                 'name': vals['name'],
                 'sequence': "19",
                 'code': vals['code'],
@@ -285,11 +287,11 @@ if payslip.loan_ids:
                 'condition_select': 'python',
                 'amount_select': 'code',
                 'amount_python_compute': python_code,
-                'condition_python': condition
-            }
-            rule_id = self.env['hr.salary.rule'].sudo().create(salary_rule_vals)
-            for structure in structures:
-                structure.write({'rule_ids': [(4, rule_id.id)]})
+                'condition_python': condition,
+                'struct_id': struct.id
+                }
+                rule_id = self.env['hr.salary.rule'].sudo().create(salary_rule_vals)
+                #structure.write({'rule_ids': [(4, rule_id.id)]})
             return loan_type_id
 
 
