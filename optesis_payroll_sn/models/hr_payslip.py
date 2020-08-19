@@ -302,11 +302,11 @@ class BonusRuleInput(models.Model):
                         _("La date du bulletin ne peut pas être supérieur à la date de sortie du contract"))
 
                 # get from optesis_hr_loan for recovering loan line
-#                 loan_line_obj = self.env['hr.loan.line']
-#                 loan_ids = loan_line_obj.search(
-#                     [('employee_id', '=', payslip.employee_id.id), ('paid_date', '>=', payslip.date_from),
-#                     ('paid_date', '<=', payslip.date_to), ('loan_id.state', 'in', ['approve_1', 'approve'])])
-#                 payslip.loan_ids = loan_ids
+                loan_line_obj = self.env['hr.loan.line']
+                loan_ids = loan_line_obj.search(
+                    [('employee_id', '=', payslip.employee_id.id), ('paid_date', '>=', payslip.date_from),
+                    ('paid_date', '<=', payslip.date_to), ('loan_id.state', 'in', ['approve_1', 'approve'])])
+                payslip.loan_ids = loan_ids
                 
                 number = payslip.number or self.env['ir.sequence'].next_by_code('salary.slip')
                 # delete old payslip lines
@@ -511,7 +511,7 @@ class BonusRuleInput(models.Model):
 #                     else:
 #                         # blacklist this rule and its children
 #                         blacklist += [id for id, seq in rule._recursive_search_of_rules()]
-                payslips.contract_id._get_duration(payslips.date_from)
+                payslips.contract_id._get_duration()
 
             return [value for code, value in result_dict.items()]
 
