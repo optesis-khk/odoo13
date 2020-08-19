@@ -13,8 +13,8 @@
            <field name="lang">${object.employee_id.lang}</field>
            <field name="body_html"><![CDATA[<p>
                     Bonjour, <br/>
-                    <strong> ${object.record.employee_id.name} </strong> a introduit une Demande de prêt de type ${object.record.type.name}.<br/>
-                    <strong> Numéro de la demande :</strong>  ${object.record.name} .<br/>
+                    <strong> ${object.employee_id.name} </strong> a introduit une Demande de prêt de type ${object.type.name}.<br/>
+                    <strong> Numéro de la demande :</strong>  ${object.name} .<br/>
                     <table cellspacing="0" cellpadding="0" style="width:600px;border-collapse:collapse;background:inherit;color:inherit">
                         <tbody>
                         <tr>
@@ -44,7 +44,7 @@
             <field name="body_html">
                 <![CDATA[<p>
                     Bonjour, <br/>
-                    La demande de prêt de <strong> ${object.record.employee_id.name} </strong> sous le numéro <strong>${object.record.name} </strong> vient d'être approuvée par le PDG.<br/>
+                    La demande de prêt de <strong> ${object.employee_id.name} </strong> sous le numéro <strong>${object.name} </strong> vient d'être approuvée par le PDG.<br/>
                     <table cellspacing="0" cellpadding="0" style="width:600px;border-collapse:collapse;background:inherit;color:inherit">
                         <tbody>
                         <tr>
@@ -71,8 +71,8 @@
             <field name="lang">${object.employee_id.lang}</field>
             <field name="body_html">
                 <![CDATA[<p>
-                    Bonjour ${object.record.employee_id.name} , <br/><br/>
-                    Votre demande de prêt  sous le numéro <strong> ${object.record.name} </strong> vient d'être approuvée.<br/>
+                    Bonjour ${object.employee_id.name} , <br/><br/>
+                    Votre demande de prêt  sous le numéro <strong> ${object.name} </strong> vient d'être approuvée.<br/>
                     <table cellspacing="0" cellpadding="0" style="width:600px;border-collapse:collapse;background:inherit;color:inherit">
                         <tbody>
                         <tr>
@@ -99,8 +99,8 @@
            <field name="lang">${object.employee_id.lang}</field>
             <field name="body_html">
                 <![CDATA[<p>
-                    Bonjour ${object.record.employee_id.name} , <br/><br/>
-                    Votre demande de prêt  sous le numéro <strong> ${object.record.name} </strong> vient d'être rejetée.<br/>
+                    Bonjour ${object.employee_id.name} , <br/><br/>
+                    Votre demande de prêt  sous le numéro <strong> ${object.name} </strong> vient d'être rejetée.<br/>
                     <table cellspacing="0" cellpadding="0" style="width:600px;border-collapse:collapse;background:inherit;color:inherit">
                         <tbody>
                         <tr>
