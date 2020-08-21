@@ -11,3 +11,6 @@ class HrSalaryRuleInherit(models.Model):
 
     simulate_ok = fields.Boolean(string='Peut être simulée', default=False,
                                  help="Used to check if the salary rule can be used for simulation")
+    
+    # set struct_id required to false
+    struct_id = fields.Many2one('hr.payroll.structure', string="Salary Structure", required=False)
