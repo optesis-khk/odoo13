@@ -17,7 +17,7 @@ class PayrollChartTemplate(models.Model):
             rights.
         """
         self.ensure_one()
-        company = self.env.user.company_id
+        company = self.env.company
         # Ensure everything is translated to the company's language, not the user's one.
         self = self.with_context(lang=company.partner_id.lang)
         if not self.env.user._is_admin():
@@ -25,17 +25,23 @@ class PayrollChartTemplate(models.Model):
 
         if company.id == 1:
             raise UserError(_('Can not change salary for My Company'))
-
+            
         # delete existing salary rule
-        for rules in self.env['hr.salary.rule'].search([('company_id', '=', company.id)]):
-            for record in rules:
-                rules_input = self.env['hr.rule.input'].search([('input_id', '=', record.id)])
-                [rule_input.unlink() for rule_input in rules_input]
-            record.unlink()
-
+        for rule in self.env['hr.salary.rule'].search([('company_id', '=', company.id)]):
+            rule.unlink()
+            
         # delete existing salary rules category
-        for rules_category in self.env['hr.salary.rule.category'].sudo().search([('company_id', '=', company.id)]):
-            [rule_category.unlink() for rule_category in rules_category]
+        for rule_category in self.env['hr.salary.rule.category'].sudo().search([('company_id', '=', company.id)]):
+            rule_category.unlink()
+            
+        # delete existing payroll structure type
+        for rule in self.env['hr.payroll.structure'].search([('company_id', '=', company.id)]):
+            rule.unlink()
+            
+        # delete existing payroll structure type
+        for rule in self.env['hr.payroll.structure.type'].search([('company_id', '=', company.id)]):
+            rule.unlink()
+            
 
         # create salary rule and category
         self._create_salary_rule_category(company)
@@ -64,7 +70,23 @@ class PayrollChartTemplate(models.Model):
         self.ensure_one()
         salary_rules = self.env['hr.salary.rule']
         payroll_structure = self.env['hr.payroll.structure']
+        
+        # create payroll structure type
+        struct_type = self.env['hr.payroll.structure.type'].create({
+            'name': 'Employee SN',
+            'company_id': company.id,
+            'country_id': False
+        })
+        
+        
+        # create structure for salary rule
+        payroll_structure = self.env['hr.payroll.structure'].create({
+            'name': 'Worker Pay SN',
+            'company_id': company.id,
+            'type_id': struct_type.id,
+        })
 
+        # create salary rules
         for salary_rule in self.env['hr.salary.rule'].sudo().search([('company_id', '=', 1)]):
             # get the category
             category = [c for c in self.env['hr.salary.rule.category'].search(
@@ -80,63 +102,25 @@ class PayrollChartTemplate(models.Model):
                 'amount_python_compute': salary_rule.amount_python_compute or False,
                 'note': salary_rule.note or False,
                 'appears_on_payslip': salary_rule.appears_on_payslip,
-                'register_id': salary_rule.register_id.id or False,
-                'parent_rule_id': salary_rule.parent_rule_id.id or False,
                 'quantity': salary_rule.quantity,
                 'amount_fix': salary_rule.amount_fix,
                 'amount_percentage_base': salary_rule.amount_percentage_base or False,
                 'condition_python': salary_rule.condition_python or False,
                 'company_id': company.id,
+                'struct_id': payroll_structure.id
             })
 
-            # create rule input for the current salary rule in loop
-            for rule_input in self.env['hr.rule.input'].sudo().search([('input_id', '=', salary_rule.id)]):
-                self.env['hr.rule.input'].create({
-                    'name': rule_input.name,
-                    'code': rule_input.code,
-                    'input_id': rule_id.id,
-                    'company_id': company.id,
-                })
-
-            salary_rules += rule_id
-
-        # create structure for salary rule
-        payroll_structure += self.env['hr.payroll.structure'].create({
-            'name': 'Base for new structures',
-            'code': 'BASE',
-            'company_id': company.id,
-            'rule_ids': salary_rules,
-            'parent_id': False,
-        })
-
-        # create account journal for current company
-        # for journals in self.env['account.journal'].sudo().search([('company_id', '=', 1)]):
-        #     for journal in journals:
-        #         self.env['account.journal'].create({
-        #             'name': journal.name,
-        #             'type': journal.type,
-        #             'code': journal.code,
-        #             'sequence_number_next': journal.sequence_number_next,
-        #             'sequence_id': journal.sequence_id.id,
-        #             'company_id': company.id,
-        #             'bank_account_id': journal.bank_account_id.id,
-        #             'bank_id': journal.bank_id.id,
-        #         })
+        # create rule input for the current salary rule in loop
+        for rule_input in self.env['hr.payslip.input.type'].sudo().search([('company_id', '=', 1)]):
+            self.env['hr.rule.input'].create({
+                'name': rule_input.name,
+                'code': rule_input.code,
+                'company_id': company.id,
+            })
 
         company.write({'payroll_chart_template': self.id})
         return payroll_structure
 
-    def _create_rule_input(self, company):
-        self.ensure_one()
-        inputs = self.env['hr.rule.input']
-        for input_record in self.env['hr.rule.input'].search(('company_id', '=', 1)):
-            inputs += self.env['hr.rule.input'].create({
-                'code': input_record.name,
-                'name': input_record.code,
-                'input_id': input_record.input_id.id,
-                'company_id': company.id,
-            })
-        return inputs
 
 
 class ResConfigSettingsInherit(models.TransientModel):
@@ -146,7 +130,7 @@ class ResConfigSettingsInherit(models.TransientModel):
 
     def set_values(self):
         """ install a chart of accounts for the given company (if required) """
-        if self.payroll_chart_template:
+        if self.payroll_chart_template and self.env.company.payroll_chart_template.id != self.payroll_chart_template.id:
             self.payroll_chart_template.load_for_current_company()
         super(ResConfigSettingsInherit, self).set_values()
 
