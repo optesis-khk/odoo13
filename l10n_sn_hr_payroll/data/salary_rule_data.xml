@@ -241,6 +241,9 @@
       <field name="struct_id" ref="structure_worker_001_sn"/>
     </record>
 
+      
+      
+      
     <record id="hr_rule_total_prime_transport" model="hr.salary.rule">
       <field name="name">Prime de transport</field>
       <field name="sequence">1125</field>
