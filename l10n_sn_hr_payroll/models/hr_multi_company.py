@@ -38,7 +38,6 @@ class HRPayrollStructureMulticompany(models.Model):
     
     @api.model
     def _get_default_rule_ids(self):
-        _logger.info('IN THE FUNCTION GET DEFAULT RULE')
         return [
             (0, 0, {
                 'name': 'Salaire de base',
@@ -818,6 +817,142 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0""",
                 'amount_select': 'code',
                 'amount_python_compute': """result = inputs.HS100.amount*2*(categories.BASE + categories.INDM)/173.3333"""
             }),
+            (0, 0, {
+                'name': """Soldes conges""",
+                'sequence': 1051,
+                'code': 'C1051',
+                'category_id': self.env.ref('hr_payroll.ALW').id,
+                'condition_select': 'python',
+                'condition_python': """if contract.motif:
+  result = True""",
+                'amount_select': 'code',
+                'amount_python_compute': """result = contract.cumul_mensuel"""
+            }),
+            (0, 0, {
+                'name': """Avantages en nature""",
+                'sequence': 1090,
+                'code': 'C1090',
+                'category_id': self.env.ref('hr_payroll.ALW').id,
+                'condition_select': 'none',
+                'amount_select': 'fix',
+                'quantity': 1,
+                'amount_fix': 0.00
+            }),
+            (0, 0, {
+                'name': """IR ANNUEL""",
+                'sequence': 2161,
+                'code': 'C2161',
+                'category_id': self.env.ref('l10n_sn_hr_payroll.impot_sur_revenu').id,
+                'condition_select': 'python',
+                'condition_python': """if employee.payslip_count > 11 and payslip.date_from.month == 12:
+  result = True
+else:
+  result = False""",
+                'amount_select': 'fix',
+                'quantity': 1,
+                'amount_fix': 0.00
+            }),
+            (0, 0, {
+                'name': """CUMUL IR""",
+                'sequence': 2162,
+                'code': 'C2162',
+                'category_id': self.env.ref('l10n_sn_hr_payroll.impot_sur_revenu').id,
+                'condition_select': 'python',
+                'condition_python': """if employee.payslip_count > 11 and payslip.date_from.month == 12:
+  result = True
+else:
+  result = False""",
+                'amount_select': 'fix',
+                'quantity': 1,
+                'amount_fix': 0.00
+            }),
+            (0, 0, {
+                'name': """REGUL IR ANNUEL""",
+                'sequence': 2163,
+                'code': 'C2163',
+                'category_id': self.env.ref('l10n_sn_hr_payroll.impot_sur_revenu').id,
+                'condition_select': 'python',
+                'condition_python': """if employee.payslip_count > 11 and payslip.date_from.month == 12:
+  result = True
+else:
+  result = False""",
+                'amount_select': 'code',
+                'amount_python_compute': """result = C2162 - C2161""",
+            }),
+            (0, 0, {
+                'name': """Cumul Trimf""",
+                'sequence': 2047,
+                'code': 'C2047',
+                'category_id': self.env.ref('l10n_sn_hr_payroll.trimf').id,
+                'condition_select': 'python',
+                'condition_python': """if employee.payslip_count > 11 and payslip.date_from.month == 12:
+  result = True
+else:
+  result = False""",
+                'amount_select': 'fix',
+                'quantity': 1,
+                'amount_fix': 0.00
+            }),
+            (0, 0, {
+                'name': """Trimf Annuelle""",
+                'sequence': 2048,
+                'code': 'C2048',
+                'category_id': self.env.ref('l10n_sn_hr_payroll.trimf').id,
+                'condition_select': 'python',
+                'condition_python': """if employee.payslip_count > 11 and payslip.date_from.month == 12:
+  result = True
+else:
+  result = False""",
+                'amount_select': 'fix',
+                'quantity': 1,
+                'amount_fix': 0.00
+            }),
+            (0, 0, {
+                'name': """Regul Trimf""",
+                'sequence': 2048,
+                'code': 'C2048',
+                'category_id': self.env.ref('l10n_sn_hr_payroll.trimf').id,
+                'condition_select': 'python',
+                'condition_python': """if employee.payslip_count > 11 and payslip.date_from.month == 12:
+  result = True
+else:
+  result = False""",
+                'amount_select': 'fix',
+                'quantity': 1,
+                'amount_fix': 0.00
+            }),
+            (0, 0, {
+                'name': """Trimf""",
+                'sequence': 2050,
+                'code': 'C2050',
+                'category_id': self.env.ref('hr_payroll.DED').id,
+                'condition_select': 'python',
+                'condition_python': """if employee.payslip_count > 11 and payslip.date_from.month == 12:
+  result = True
+else:
+  result = False""",
+                'amount_select': 'code',
+                'amount_python_compute': """trimf_val = 0
+if categories.C_IMP < 50000:
+  trimf_val = employee.trimf*75
+else:
+  if categories.C_IMP < 83333:
+    trimf_val = employee.trimf*300
+  else:
+    if categories.C_IMP < 166667:
+      trimf_val = employee.trimf*400
+    else:
+      if categories.C_IMP < 583334:
+        trimf_val = employee.trimf*1000
+      else:
+        if categories.C_IMP < 1000000:
+          trimf_val = employee.trimf*1500
+        else:
+          trimf_val = employee.trimf*3000
+result = trimf_val - C2049""",
+                'partner_id': self.env.ref('l10n_sn_hr_payroll.hr_VRS_register').id
+            }),
+            
         ]
     
     rule_ids = fields.One2many(
@@ -838,6 +973,7 @@ class HRSalaryRuleInherit(models.Model):
     _inherit = "hr.salary.rule"
 
     company_id = fields.Many2one('res.company', 'Compagnie', required=False)
+    struct_id = fields.Many2one('hr.payroll.structure', string="Salary Structure", required=True, ondelete="cascade")
     
     
 class HRSalaryRuleTypeInherit(models.Model):

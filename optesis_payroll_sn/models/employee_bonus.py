@@ -57,6 +57,13 @@ class EmployeeBonus(models.Model):
                 i.state = 'active'
             else:
                 i.state = 'expired'
+                
+    @api.onchange('contract_id')
+    def onchange_contract(self):
+        list = []
+        for rec in self.contract_id.structure_type_id.struct_ids:
+            list.append(rec.id)
+        return {'domain': {'salary_rule': [('struct_id', 'in', list)]}}
 
 
 class OptesisRelation(models.Model):
