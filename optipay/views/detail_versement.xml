@@ -56,9 +56,9 @@
          sequence="68"/>
 
 
-    <record id="optesis_payroll_sn_detail_versement_company" model="ir.rule">
+    <record id="optipay_detail_versement_company" model="ir.rule">
         <field name="name">Detail Salary of my Company</field>
-        <field name="model_id" ref="optesis_payroll_sn.model_optesis_detail_versement"/>
+        <field name="model_id" ref="optipay.model_optesis_detail_versement"/>
         <field eval="False" name="global"/>
         <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
     </record>
