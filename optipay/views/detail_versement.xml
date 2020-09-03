@@ -55,7 +55,6 @@
          parent="hr_payroll.menu_hr_payroll_root" action="detail_versement_action"
          sequence="68"/>
 
-
     <record id="optipay_detail_versement_company" model="ir.rule">
         <field name="name">Detail Salary of my Company</field>
         <field name="model_id" ref="optipay.model_optesis_detail_versement"/>
