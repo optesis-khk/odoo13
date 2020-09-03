@@ -1080,6 +1080,7 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0
 
     <record id="hr_payroll_rules_hs_15" model="hr.salary.rule">
       <field name="category_id" ref="hs"/>
+      <field name="active" eval="False"/>
       <field name="name">HS 15%</field>
       <field name="code">HS15</field>
       <field name="sequence">1021</field>
@@ -1094,14 +1095,10 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0
       <field name="struct_id" ref="structure_worker_001_sn"/>
     </record>
 
-    <!--<record id="hr_rule_input_hs_15" model="hr.rule.input">
-        <field name="code">HS15</field>
-        <field name="name">Heures supplémentaires 15%</field>
-        <field name="input_id" ref="hr_payroll_rules_hs_15"/>
-    </record>-->
-
+      
     <record id="hr_payroll_rules_hs_40" model="hr.salary.rule">
       <field name="category_id" ref="hs"/>
+        <field name="active" eval="False"/>
       <field name="name">HS 40%</field>
       <field name="code">HS40</field>
       <field name="sequence">1022</field>
@@ -1116,14 +1113,10 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0
       <field name="struct_id" ref="structure_worker_001_sn"/>
     </record>
 
-    <!--<record id="hr_rule_input_hs_40" model="hr.rule.input">
-        <field name="code">HS40</field>
-        <field name="name">Heures supplémentaires 40%</field>
-        <field name="input_id" ref="hr_payroll_rules_hs_40"/>
-    </record>-->
 
     <record id="hr_payroll_rules_hs_60" model="hr.salary.rule">
       <field name="category_id" ref="hs"/>
+        <field name="active" eval="False"/>
       <field name="name">HS 60%</field>
       <field name="code">HS60</field>
       <field name="sequence">1023</field>
@@ -1138,14 +1131,9 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0
       <field name="struct_id" ref="structure_worker_001_sn"/>
     </record>
 
-    <!--<record id="hr_rule_input_hs_60" model="hr.rule.input">
-        <field name="code">HS60</field>
-        <field name="name">Heures supplémentaires 60%</field>
-        <field name="input_id" ref="hr_payroll_rules_hs_60"/>
-    </record>-->
-
     <record id="hr_payroll_rules_hs_100" model="hr.salary.rule">
       <field name="category_id" ref="hs"/>
+        <field name="active" eval="False"/>
       <field name="name">HS 100%</field>
       <field name="code">HS100</field>
       <field name="sequence">1024</field>
@@ -1159,12 +1147,6 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0
       </field>
       <field name="struct_id" ref="structure_worker_001_sn"/>
     </record>
-
-    <!--<record id="hr_rule_input_hs_100" model="hr.rule.input">
-        <field name="code">HS100</field>
-        <field name="name">Heures supplémentaires 100%</field>
-        <field name="input_id" ref="hr_payroll_rules_hs_100"/>
-    </record>-->
 
     <record id="hr_payroll_solde_conge" model="hr.salary.rule">
       <field name="category_id" ref="hr_payroll.ALW"/>

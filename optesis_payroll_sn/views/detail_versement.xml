@@ -53,7 +53,7 @@
 
     <menuitem id="detail_versement_menu"
          parent="hr_payroll.menu_hr_payroll_root" action="detail_versement_action"
-         sequence="19"/>
+         sequence="68"/>
 
 
     <record id="optesis_payroll_sn_detail_versement_company" model="ir.rule">
