@@ -83,7 +83,7 @@ class OptesisRelation(models.Model):
 class HrPayslipRunExtend(models.Model):
     _inherit = 'hr.payslip.run'
     
-    journal_id = fields.Many2one('account.journal', 'Salary Journal', readonly=False, required=True)
+    journal_id = fields.Many2one('account.journal', 'Salary Journal', readonly=False)
 
     def action_validate(self):
         precision = self.env['decimal.precision'].precision_get('Payroll')

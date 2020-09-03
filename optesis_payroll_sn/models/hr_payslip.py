@@ -33,8 +33,8 @@ class BonusRuleInput(models.Model):
                     input = slip.env['hr.payslip.input.type'].search([('code', '=', bonus.salary_rule.code)])
                     if not input:
                         input = slip.env['hr.payslip.input.type'].create({
-                            'name':bonus.salary_rule.name,
-                            'code':bonus.salary_rule.code
+                            'name': bonus.salary_rule.name,
+                            'code': bonus.salary_rule.code
                         })
                     bonus_line = {
                         'name': bonus.salary_rule.name,
@@ -525,6 +525,8 @@ class BonusRuleInput(models.Model):
         # fill only if the contract as a working schedule linked
         self.ensure_one()
         contract = self.contract_id
+        leave_day = 0
+        day_rounded = 0
         if contract.resource_calendar_id:
             paid_amount = self._get_contract_wage()
             unpaid_work_entry_types = self.struct_id.unpaid_work_entry_type_ids.ids
@@ -536,20 +538,31 @@ class BonusRuleInput(models.Model):
             add_days_rounding = 0
             for work_entry_type_id, hours in work_hours_ordered:
                 work_entry_type = self.env['hr.work.entry.type'].browse(work_entry_type_id)
-                is_paid = work_entry_type_id not in unpaid_work_entry_types
-                calendar = contract.resource_calendar_id
-                days = round(hours / calendar.hours_per_day, 5) if calendar.hours_per_day else 0
-                if work_entry_type_id == biggest_work:
-                    days += add_days_rounding
-                day_rounded = self._round_days(work_entry_type, days)
-                add_days_rounding += (days - day_rounded)
-                attendance_line = {
-                    'sequence': work_entry_type.sequence,
-                    'work_entry_type_id': work_entry_type_id,
-                    'number_of_days': 30, # day_rounded,
-                    'number_of_hours': 173.33, # hours,
-                    'amount': hours * paid_amount / total_hours if is_paid else 0,
-                }
+                if work_entry_type.code == "WORK100":
+                    wkd = 30 - day_rounded
+                    attendance_line = {
+                        'sequence': work_entry_type.sequence,
+                        'work_entry_type_id': work_entry_type_id,
+                        'number_of_days': wkd,
+                        'number_of_hours': (wkd - 8) * 8 if wkd - 8 > 0 else 0,
+                        'amount': 0,
+                    }
+                else:
+                    is_paid = work_entry_type_id not in unpaid_work_entry_types
+                    calendar = contract.resource_calendar_id
+                    days = round(hours / calendar.hours_per_day, 5) if calendar.hours_per_day else 0
+                    if work_entry_type_id == biggest_work:
+                        days += add_days_rounding
+                    day_rounded = self._round_days(work_entry_type, days)
+                    add_days_rounding += (days - day_rounded)
+                    leave_day += day_rounded
+                    attendance_line = {
+                        'sequence': work_entry_type.sequence,
+                        'work_entry_type_id': work_entry_type_id,
+                        'number_of_days': day_rounded,
+                        'number_of_hours': hours,
+                        'amount': 0,
+                    }
                 res.append(attendance_line)
         return res
 
