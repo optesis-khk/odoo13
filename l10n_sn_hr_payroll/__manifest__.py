@@ -15,7 +15,7 @@ Senegal Payroll Rules.
     - Configuration of hr_payroll for Senegal localization
                     """,
     'website': 'http://www.optesis.com',
-    'depends': ['optesis_payroll_sn', 'l10n_pcgo'],
+    'depends': ['optipay', 'l10n_pcgo'],
     'data': [
         'security/ir.model.access.csv',
         'data/salary_rule_data.xml',
