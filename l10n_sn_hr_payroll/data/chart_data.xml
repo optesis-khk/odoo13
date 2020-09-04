@@ -4,4 +4,5 @@
   <record id="payroll_chart_template" model="payroll.chart.template">
     <field name="name">Senegal Payroll - Salary Rules </field>
   </record>
+    
 </odoo>

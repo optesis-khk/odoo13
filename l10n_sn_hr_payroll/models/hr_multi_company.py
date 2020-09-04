@@ -210,7 +210,7 @@ class HRPayrollStructureMulticompany(models.Model):
                 'amount_python_compute': """if categories.BFISC < 125000 and categories.BFISC > 52500:
   result=round((categories.BFISC - 52500)*0.2)
 else:
-  if categories.BFISC &gt; 125000:
+  if categories.BFISC > 125000:
     result=14500
   else:
     result=0"""
@@ -226,7 +226,7 @@ else:
                 'amount_python_compute': """if categories.BFISC < 333333 and categories.BFISC > 125000:
     result=round((categories.BFISC - 125000)*0.3)
 else:
-  if categories.BFISC &gt; 333333:
+  if categories.BFISC > 333333:
     result=62500
   else:
     result=0""",
@@ -258,7 +258,7 @@ else:
                 'amount_python_compute': """if categories.BFISC <= 1125000 and categories.BFISC > 666667:
     result=round((categories.BFISC - 666667)*0.37)
 else:
-    if categories.BFISC &gt; 1125000:
+    if categories.BFISC > 1125000:
       result=169583
     else:
       result=0""",
