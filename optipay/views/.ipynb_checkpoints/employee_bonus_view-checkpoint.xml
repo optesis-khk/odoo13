@@ -104,7 +104,7 @@
                             <group>
                                 <field name="amount"/>
                                 <field name="company_id"/>
-                                <field name="contract_id"/>
+                                <field name="contract_id" required="True"/>
                             </group>
                         </group>
 
@@ -112,6 +112,7 @@
                 </form>
             </field>
         </record>
+    
         <record id="employee_bonus__details_tree" model="ir.ui.view">
             <field name="name">Employee Bonus</field>
             <field name="model">hr.employee.bonus</field>
@@ -123,10 +124,20 @@
 				            <field name="date_to"/>
                     <field name="amount"/>
                     <field name="company_id"/>
-                    <!--<field name="contract_id"/>-->
+                    <field name="contract_id"/>
                 </tree>
             </field>
         </record>
+    
+        <record id="element_variable_action" model="ir.actions.act_window">
+            <field name="name">Element Variables</field>
+            <field name="res_model">hr.employee.bonus</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      <menuitem id="element_variable_menu"
+         parent="hr_payroll.menu_hr_payroll_configuration" action="element_variable_action"
+         sequence="19"/>
 
         <record id="hr_payslip_run_form_inherit_batch_pay" model="ir.ui.view">
         <field name="name">hr.payslip.run.form.inherit.batch.pay</field>
