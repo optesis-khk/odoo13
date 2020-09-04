@@ -18,12 +18,12 @@ Senegal Payroll Rules.
     'depends': ['optipay', 'l10n_pcgo'],
     'data': [
         'security/ir.model.access.csv',
+        'views/payroll_chart_template_views.xml',
+        'views/multi_company_view.xml',
         'data/salary_rule_data.xml',
         'data/chart_data.xml',
         #'data/salary_rule_foreign_data.xml',
         'data/convention_collective_data.xml',
-        'views/payroll_chart_template_views.xml',
-        'views/multi_company_view.xml',
     ],
 
 }
