@@ -439,7 +439,7 @@ else:
                 'appears_on_payslip': False,
                 'condition_select': 'none',
                 'amount_select': 'code',
-                'amount_python_compute': """if (categories.TIR - categories.CRED) &gt; 0:
+                'amount_python_compute': """if (categories.TIR - categories.CRED) > 0:
   result = round(categories.TIR - categories.CRED)
 else:
   result=0""",
@@ -473,19 +473,19 @@ else:
   else:
       result = True""",
                 'amount_select': 'code',
-                'amount_python_compute': """if categories.C_IMP &lt; 50000:
+                'amount_python_compute': """if categories.C_IMP < 50000:
   result = employee.trimf*75
 else:
-  if categories.C_IMP &lt; 83333:
+  if categories.C_IMP < 83333:
     result = employee.trimf*300
   else:
-    if categories.C_IMP &lt; 166667:
+    if categories.C_IMP < 166667:
       result = employee.trimf*400
     else:
-      if categories.C_IMP &lt; 583334:
+      if categories.C_IMP < 583334:
         result = employee.trimf*1000
       else:
-        if categories.C_IMP &lt; 1000000:
+        if categories.C_IMP < 1000000:
           result = employee.trimf*1500
         else:
           result = employee.trimf*3000""",
@@ -570,7 +570,7 @@ else:
                 'appears_on_payslip': False,
                 'condition_select': 'python',
                 'condition_python': """dur = payslip.date_to - contract.dateAnciennete
-if dur.days &gt; 730:
+if dur.days > 730:
   result = True""",
                 'amount_select': 'code',
                 'amount_python_compute': """dur = payslip.date_to - contract.dateAnciennete
