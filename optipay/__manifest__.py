@@ -23,7 +23,7 @@
 
 {
     'name': 'Optipay',
-    'version': '12.0.1',
+    'version': '13.0.2',
     'summary': """Gérez vos dossiers de paie salariale""",
     'description': """""",
     'category': 'Human Resources',
@@ -40,6 +40,7 @@
         'wizard/payslip_simul_wizard_views.xml',
         'views/custom_external_layout_bulletin.xml',
         'views/employee_bonus_view.xml',
+        'views/hr_payslip_run_inherit.xml',
         'views/report_declaration_retenues.xml',
         'views/report_transfer_order.xml',
         'views/report_cotisation_ipres.xml',

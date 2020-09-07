@@ -22,6 +22,7 @@ class BonusRuleInput(models.Model):
     payslip_count_yearly = fields.Integer('Nb payslip yearly', compute="_get_payslip_count_yearly")
     year = fields.Char(string="year", compute='_get_year', store=True)
     holiday_of_payslip = fields.Float(default=0)
+    net_salary = fields.Float()
     
     @api.onchange('employee_id','struct_id')
     def _get_inputs(self):
@@ -38,7 +39,7 @@ class BonusRuleInput(models.Model):
                         })
                     bonus_line = {
                         'name': bonus.salary_rule.name,
-                        'input_type_id': input.id if input else bonus.salary_rule.name,
+                        'input_type_id': input[0].id if input else bonus.salary_rule.name,
                         'contract_id': slip.contract_id.id,
                         'amount': bonus.amount,
 

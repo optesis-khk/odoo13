@@ -977,7 +977,7 @@ class HRSalaryRuleInherit(models.Model):
     _inherit = "hr.salary.rule"
 
     company_id = fields.Many2one('res.company', 'Compagnie', required=False)
-    struct_id = fields.Many2one('hr.payroll.structure', string="Salary Structure", required=True, ondelete="cascade")
+    struct_id = fields.Many2one('hr.payroll.structure', string="Salary Structure", required=False, ondelete="cascade")
     
     
 class HRSalaryRuleTypeInherit(models.Model):

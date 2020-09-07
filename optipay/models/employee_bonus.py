@@ -351,7 +351,6 @@ class HrPayslipRunExtend(models.Model):
                 'debit': dict[key]['debit'],
                 'credit': dict[key]['credit'],
                 'analytic_account_id': dict[key]['analytic_account_id'],
-                #'tax_line_id': dict[key]['tax_line_id'],
             })
             line_ids.append(move_line)
             
