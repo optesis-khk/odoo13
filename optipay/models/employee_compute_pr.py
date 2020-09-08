@@ -15,7 +15,7 @@ class ProvisionRetraiteRuleInput(models.Model):
             if len(payslip_ids) >= 11:
                 cumul_brut = 0
                 for line in payslip_ids:
-                    cumul_brut += sum(line.total for line in line.details_by_salary_rule_category if
+                    cumul_brut += sum(line.total for line in line.line_ids if
                                       line.code == 'C1148')  # get salary brut of previous payslip
 
                 # after the cumulates of last salary brut i add the value of current payslip
