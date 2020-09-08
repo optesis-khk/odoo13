@@ -1,0 +1,53 @@
+<odoo>
+    <record id="optesis_payroll_input_form" model="ir.ui.view">
+            <field name="name">Payroll Inputs</field>
+            <field name="model">optesis.payslip.input</field>
+            <field name="arch" type="xml">
+                <form string="Employee Payslip Inputs">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="input_id"/>
+                                <field name="employee_id" />
+                                <label for="date_from" string="Policy Period"/>
+                          			<div>
+                          				<field name="date_from" class="oe_inline" on_change="1" />
+                          				  -
+                          				<field name="date_to" class="oe_inline" on_change="1" />
+                          			</div>
+                            </group>
+                            <group>
+                                <field name="state"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    
+        <record id="optesis_payslip_input_tree" model="ir.ui.view">
+            <field name="name">Employee Payslip Inputs</field>
+            <field name="model">optesis.payslip.input</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Bonus">
+                    <field name="name"/>
+                     <field name="employee_id"/>
+                    <field name="date_from" />
+				    <field name="date_to"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+    
+        <record id="optesis_payslip_input_action" model="ir.actions.act_window">
+            <field name="name">Employee Payslip Inputs</field>
+            <field name="res_model">optesis.payslip.input</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      <menuitem id="element_variable_menu"
+         parent="hr_payroll.menu_hr_payroll_configuration" action="optesis_payslip_input_action"
+         sequence="19"/>
+</odoo>

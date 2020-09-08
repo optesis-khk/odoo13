@@ -35,3 +35,4 @@ from . import hr_payslip_annual_ir
 from . import hr_payslip_annual_trimf
 from . import res_company_inherit
 from . import res_config_settings_inherit
+from . import optesis_payslip_input
