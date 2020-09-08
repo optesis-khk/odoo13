@@ -80,7 +80,7 @@ class OptesisRelation(models.Model):
     employee_id = fields.Many2one('hr.employee')
 
 
-class HrPayslipRunExtend(models.Model):
+class HrPayslipRunInherit(models.Model):
     _inherit = 'hr.payslip.run'
     
     journal_id = fields.Many2one('account.journal', 'Salary Journal', readonly=False)
