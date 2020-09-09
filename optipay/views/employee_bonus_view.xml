@@ -136,7 +136,7 @@
         </record>
 
       <menuitem id="element_variable_menu"
-         parent="hr_payroll.menu_hr_payroll_configuration" action="element_variable_action"
+         parent="hr_payroll.menu_hr_payroll_payslips" action="element_variable_action"
          sequence="19"/>
 
     <record id="hr_employee_form_inherit" model="ir.ui.view">

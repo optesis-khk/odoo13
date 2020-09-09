@@ -5,11 +5,6 @@
             res_model="hr.payslip.line"
             view_mode="pivot,graph" />
 
-        <menuitem id="menu_optipay_reporting"
-          name="Rapports"
-          parent="hr_payroll.menu_hr_payroll_root"
-          sequence="71"/>
-
           <menuitem
           id="payslip_lines_cotisation_ipres_value_menu_action"
           action="payslip_lines_cotisation_ipres_value"
