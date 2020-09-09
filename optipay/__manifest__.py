@@ -32,7 +32,7 @@
     'company': 'Optesis SA',
     'website': 'https://www.optesis.com',
     'depends': [
-                'base', 'hr', 'hr_payroll', 'hr_contract', 'hr_payroll_account',
+                'base', 'hr', 'hr_payroll', 'hr_contract', 'hr_payroll_account', 'optesis_hr_loan',
                 ],
     'data': [
         'static/src/css/my_css.xml',
@@ -65,6 +65,7 @@
         'wizard/dads.xml',
         'wizard/transfer_order.xml',
         'views/menu_reports_payslip.xml',
+        'views/optesis_payslip_input_view.xml',
               ],
     'images': ['static/description/banner.jpg'],
     'license': 'AGPL-3',

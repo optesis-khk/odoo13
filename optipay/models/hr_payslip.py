@@ -28,21 +28,20 @@ class BonusRuleInput(models.Model):
     def _get_inputs(self):
         res = []
         for slip in self:
-            for bonus in slip.contract_id.bonus:
-                if not ((bonus.date_to < slip.date_from or bonus.date_from > slip.date_to) or
-                        (bonus.date_to <= slip.date_from or bonus.date_from >= slip.date_to)):
-                    input = slip.env['hr.payslip.input.type'].search([('code', '=', bonus.salary_rule.code)])
+            for optesis_input in self.env['optesis.payslip.input'].search([('employee_id', '=', slip.employee_id.id)]):
+                if not ((optesis_input.date_to < slip.date_from or optesis_input.date_from > slip.date_to) or
+                        (optesis_input.date_to <= slip.date_from or optesis_input.date_from >= slip.date_to)):
+                    input = slip.env['hr.payslip.input.type'].search([('code', '=', optesis_input.input_id.code)])
                     if not input:
                         input = slip.env['hr.payslip.input.type'].create({
                             'name': bonus.salary_rule.name,
                             'code': bonus.salary_rule.code
                         })
                     bonus_line = {
-                        'name': bonus.salary_rule.name,
-                        'input_type_id': input[0].id if input else bonus.salary_rule.name,
+                        'name': optesis_input.input_id.name,
+                        'input_type_id': input[0].id,
                         'contract_id': slip.contract_id.id,
-                        'amount': bonus.amount,
-
+                        'amount': optesis_input.value,
                     }
                     res += [bonus_line]
             input_lines = slip.input_line_ids.browse([])
