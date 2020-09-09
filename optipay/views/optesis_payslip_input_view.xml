@@ -41,6 +41,21 @@
             </field>
         </record>
     
+        <record id="view_optesis_payslip_input_filter" model="ir.ui.view">
+            <field name="name">optesis.payslip.input.filter</field>
+            <field name="model">optesis.payslip.input</field>
+            <field name="arch" type="xml">
+                <search string="Entrées des fiches de paie Recherche">
+                    <field name="input_id" string="Entrée"/>
+                    <field name="employee_id" string="Employé"/>
+                    <group col="8" colspan="4" expand="0" string="Group By">
+                        <filter string="Employé" name="employee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Entrée" name="input_id" context="{'group_by':'input_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    
         <record id="optesis_payslip_input_action" model="ir.actions.act_window">
             <field name="name">Entrées des fiches de paie</field>
             <field name="res_model">optesis.payslip.input</field>

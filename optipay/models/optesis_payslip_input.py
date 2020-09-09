@@ -19,8 +19,8 @@ class OptesisPayrollInputs(models.Model):
     value = fields.Float('Amount/Quantité', default=0.0)
     
     
-    @api.onchange('input_id')
+    @api.onchange('input_id', 'employee_id')
     def _get_name(self):
         for rec in self:
-            if rec.input_id:
+            if rec.input_id and rec.employee_id:
                 rec.name = '%s - %s ' % ('Entrée ' + rec.employee_id.name or '', format_date(rec.env, rec.date_from, date_format="MMMM y"))

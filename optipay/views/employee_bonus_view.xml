@@ -91,7 +91,7 @@
                     <sheet>
                         <group>
                             <group>
-                                <!--<field name="name"/>-->
+                                <field name="name"/>
                                 <field name="employee_id"/>
                                 <field name="salary_rule" />
                                 <label for="date_from" string="Policy Period"/>
@@ -118,7 +118,6 @@
             <field name="model">hr.employee.bonus</field>
             <field name="arch" type="xml">
                 <tree string="Employee Bonus">
-                    <!--<field name="name"/>-->
                      <field name="salary_rule"/>
                     <field name="date_from" />
 				            <field name="date_to"/>
@@ -126,6 +125,21 @@
                     <field name="company_id"/>
                     <field name="contract_id"/>
                 </tree>
+            </field>
+        </record>
+    
+        <record id="view_hr_employee_bonus_filter" model="ir.ui.view">
+            <field name="name">hr.employee.bonus.filter</field>
+            <field name="model">hr.employee.bonus</field>
+            <field name="arch" type="xml">
+                <search string="Element Variable Recherche">
+                    <field name="employee_id" string="Employé"/>
+                    <field name="salary_rule" string="Règle salariale"/>
+                    <group col="8" colspan="4" expand="0" string="Group By">
+                        <filter string="Employé" name="employee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Règle salariale" name="salary_rule" context="{'group_by':'salary_rule'}"/>
+                    </group>
+                </search>
             </field>
         </record>
     
