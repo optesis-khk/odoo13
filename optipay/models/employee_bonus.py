@@ -23,6 +23,7 @@
 import time
 from datetime import datetime, date, time as t
 from dateutil import relativedelta
+from odoo.tools.misc import format_date
 from odoo.tools import float_compare, float_is_zero
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
@@ -33,6 +34,7 @@ class EmployeeBonus(models.Model):
     _name = 'hr.employee.bonus'
     _description = 'Employee Bonus'
 
+    name = fields.Char(readonly=True, compute="_get_name")
     salary_rule = fields.Many2one('hr.salary.rule', string="Salary Rule", required=True)
     employee_id = fields.Many2one('hr.employee', string='Employee')
     amount = fields.Float(string='Amount', required=True)
@@ -47,6 +49,12 @@ class EmployeeBonus(models.Model):
     company_id = fields.Many2one('res.company', string='Company', required=True,
                                  default=lambda self: self.env.user.company_id)
     contract_id = fields.Many2one('hr.contract', string='Contract')
+    
+    @api.onchange('employee_id')
+    def _get_name(self):
+        for rec in self:
+            if rec.employee_id:
+                rec.name = '%s - %s ' % ('Element Variable ' + rec.employee_id.name or '', format_date(rec.env, rec.date_from, date_format="MMMM y"))
 
     def get_status(self):
         current_datetime = datetime.now()
