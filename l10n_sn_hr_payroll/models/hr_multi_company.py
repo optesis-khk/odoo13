@@ -35,7 +35,7 @@ class HRPayrollStructureMulticompany(models.Model):
 
     company_id = fields.Many2one('res.company', 'Compagnie', required=False)
 
-    
+
 #     @api.model
 #     def _get_default_rule_ids(self):
 #         return [
@@ -957,7 +957,7 @@ class HRPayrollStructureMulticompany(models.Model):
 #                 'partner_id': self.env.ref('l10n_sn_hr_payroll.hr_VRS_register').id
 #             }),
 #         ]
-    
+
 #     rule_ids = fields.One2many(
 #         'hr.salary.rule', 'struct_id',
 #         string='Salary Rules', default=_get_default_rule_ids)
