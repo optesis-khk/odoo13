@@ -771,53 +771,49 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0""",
             }),
             (0, 0, {
                 'name': """HS 15%""",
-                'active': False,
+                'active': True,
                 'sequence': 1021,
                 'code': 'HS15',
                 'category_id': self.env.ref('l10n_sn_hr_payroll.hs').id,
                 'appears_on_payslip': True,
                 'condition_select': 'python',
-                'condition_python': """if inputs.HS15.amount !=0:
-  result = True""",
+                'condition_python': """result = True if inputs.HS15 else False""",
                 'amount_select': 'code',
                 'amount_python_compute': """result = inputs.HS15.amount*1.15*(categories.BASE + categories.INDM)/173.3333"""
             }),
             (0, 0, {
                 'name': """HS 40%""",
-                'active': False,
+                'active': True,
                 'sequence': 1022,
                 'code': 'HS40',
                 'category_id': self.env.ref('l10n_sn_hr_payroll.hs').id,
                 'appears_on_payslip': True,
                 'condition_select': 'python',
-                'condition_python': """if inputs.HS40.amount !=0:
-  result = True""",
+                'condition_python': """result = True if inputs.HS40 else False""",
                 'amount_select': 'code',
                 'amount_python_compute': """result = inputs.HS40.amount*1.4*(categories.BASE + categories.INDM)/173.3333"""
             }),
             (0, 0, {
                 'name': """HS 60%""",
-                'active': False,
+                'active': True,
                 'sequence': 1023,
                 'code': 'HS60',
                 'category_id': self.env.ref('l10n_sn_hr_payroll.hs').id,
                 'appears_on_payslip': True,
                 'condition_select': 'python',
-                'condition_python': """if inputs.HS60.amount !=0:
-  result = True""",
+                'condition_python': """result = True if inputs.HS60 else False""",
                 'amount_select': 'code',
                 'amount_python_compute': """result = inputs.HS60.amount*1.6*(categories.BASE + categories.INDM)/173.3333"""
             }),
             (0, 0, {
                 'name': """HS 100%""",
-                'active': False,
+                'active': True,
                 'sequence': 1024,
                 'code': 'HS100',
                 'category_id': self.env.ref('l10n_sn_hr_payroll.hs').id,
                 'appears_on_payslip': True,
                 'condition_select': 'python',
-                'condition_python': """if inputs.HS100.amount !=0:
-  result = True""",
+                'condition_python': """result = True if inputs.HS100 else False""",
                 'amount_select': 'code',
                 'amount_python_compute': """result = inputs.HS100.amount*2*(categories.BASE + categories.INDM)/173.3333"""
             }),

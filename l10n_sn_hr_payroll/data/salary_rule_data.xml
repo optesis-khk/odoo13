@@ -1080,15 +1080,13 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0
 
     <record id="hr_payroll_rules_hs_15" model="hr.salary.rule">
       <field name="category_id" ref="hs"/>
-      <field name="active" eval="False"/>
+      <field name="active" eval="True"/>
       <field name="name">HS 15%</field>
       <field name="code">HS15</field>
       <field name="sequence">1021</field>
       <field name="appears_on_payslip">True</field>
       <field name="condition_select">python</field>
-      <field name="condition_python">if inputs.HS15.amount !=0:
-  result = True
-      </field>
+      <field name="condition_python">result = True if inputs.HS15 else False</field>
       <field name="amount_select">code</field>
       <field name="amount_python_compute">result = inputs.HS15.amount*1.15*(categories.BASE + categories.INDM)/173.3333
       </field>
@@ -1098,15 +1096,13 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0
       
     <record id="hr_payroll_rules_hs_40" model="hr.salary.rule">
       <field name="category_id" ref="hs"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
       <field name="name">HS 40%</field>
       <field name="code">HS40</field>
       <field name="sequence">1022</field>
       <field name="appears_on_payslip">True</field>
       <field name="condition_select">python</field>
-      <field name="condition_python">if inputs.HS40.amount !=0:
-  result = True
-      </field>
+      <field name="condition_python">result = True if inputs.HS40 else False</field>
       <field name="amount_select">code</field>
       <field name="amount_python_compute">result = inputs.HS40.amount*1.4*(categories.BASE + categories.INDM)/173.3333
       </field>
@@ -1116,15 +1112,13 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0
 
     <record id="hr_payroll_rules_hs_60" model="hr.salary.rule">
       <field name="category_id" ref="hs"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
       <field name="name">HS 60%</field>
       <field name="code">HS60</field>
       <field name="sequence">1023</field>
       <field name="appears_on_payslip">True</field>
       <field name="condition_select">python</field>
-      <field name="condition_python">if inputs.HS60.amount !=0:
-  result = True
-      </field>
+      <field name="condition_python">result = True if inputs.HS60 else False</field>
       <field name="amount_select">code</field>
       <field name="amount_python_compute">result = inputs.HS60.amount*1.6*(categories.BASE + categories.INDM)/173.3333
       </field>
@@ -1133,15 +1127,13 @@ result =(nbj/365)*categories.BASE + C1010 if nbj != 0 else 0
 
     <record id="hr_payroll_rules_hs_100" model="hr.salary.rule">
       <field name="category_id" ref="hs"/>
-        <field name="active" eval="False"/>
+        <field name="active" eval="True"/>
       <field name="name">HS 100%</field>
       <field name="code">HS100</field>
       <field name="sequence">1024</field>
       <field name="appears_on_payslip">True</field>
       <field name="condition_select">python</field>
-      <field name="condition_python">if inputs.HS100.amount !=0:
-  result = True
-      </field>
+      <field name="condition_python">result = True if inputs.HS100 else False</field>
       <field name="amount_select">code</field>
       <field name="amount_python_compute">result = inputs.HS100.amount*2*(categories.BASE + categories.INDM)/173.3333
       </field>
