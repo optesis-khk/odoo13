@@ -20,7 +20,7 @@ Senegal Payroll Rules.
         'security/ir.model.access.csv',
         'views/payroll_chart_template_views.xml',
         'views/multi_company_view.xml',
-        #'data/salary_rule_data.xml',
+        'data/salary_rule_data.xml',
         'views/payroll_chart_template_views.xml',
         'views/multi_company_view.xml',
         'data/chart_data.xml',

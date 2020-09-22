@@ -956,7 +956,6 @@ else:
 result = trimf_val - C2049""",
                 'partner_id': self.env.ref('l10n_sn_hr_payroll.hr_VRS_register').id
             }),
-            
         ]
     
     rule_ids = fields.One2many(
