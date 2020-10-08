@@ -66,6 +66,7 @@
         'wizard/transfer_order.xml',
         'views/menu_reports_payslip.xml',
         'views/optesis_payslip_input_view.xml',
+        'views/hr_employee_inherit_view.xml'
               ],
     'images': ['static/description/banner.jpg'],
     'license': 'AGPL-3',

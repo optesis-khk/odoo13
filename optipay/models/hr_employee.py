@@ -27,6 +27,7 @@ class HrEmployee(models.Model):
             value.ir = 1
             value.trimf = 1
             nbj_sup = 0
+            status = 'single'
             for line in value.relation_ids:
                 if line.type == 'enfant':
                     now = datetime.now()
@@ -43,7 +44,9 @@ class HrEmployee(models.Model):
                         value.trimf += 1
                     else:
                         value.ir += 0.5
-                    value.marital = 'married'
+                    status = 'married'
+                    
+            value.marital = status
 
             if value.contract_id:
                 old_nbj_sup = value.contract_id.nbj_sup
