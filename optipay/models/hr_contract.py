@@ -151,4 +151,4 @@ class OptesisHolidaysTracking(models.Model):
     def _get_number_of_days(self, date_from, date_to):
         """ Returns a float equals to the timedelta between two dates given as string."""
         time_delta = date_to - date_from
-        return math.ceil(time_delta.days + float(time_delta.seconds) / 86400)
+        return math.ceil(time_delta.days + float(time_delta.seconds) / 86400) + 1
